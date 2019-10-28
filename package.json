@@ -10,16 +10,22 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.etna-header"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.etna-header",
+				"title": "Add Etna Header"
 			}
-		]
+        ],
+        "keybindings":[
+            {
+                "command": "extension.etna-header",
+                "key": "ctrl+c h"
+            }
+        ]
 	},
 	"scripts": {
 		"test": "node ./test/runTest.js"
@@ -34,5 +40,8 @@
 		"mocha": "^6.1.4",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.2.0"
+	},
+	"dependencies": {
+		"vscode": "^1.1.36"
 	}
 }
