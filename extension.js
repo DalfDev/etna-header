@@ -9,7 +9,33 @@ function convertDate(inputFormat) {
     function pad(s) { return (s < 10) ? '0' + s : s; }
     var d = new Date(inputFormat)
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
-  }
+}
+
+function generateDescBox(editor, login) {
+    let box2 = vscode.window.createInputBox();
+    let pos = editor.selection.active;
+    box2.placeholder = "Description";
+    box2.show()
+
+    box2.onDidAccept(() => {
+        box2.hide()
+        let desc = box2.value;
+        let ext = editor.document.uri.fsPath;
+        vscode.window.showInformationMessage(ext);
+        editor.edit(editBuilder => {
+            editBuilder.insert(
+                new vscode.Position(pos.line, pos.character + 1),
+                "/*\n\
+** ETNA PROJECT, " + convertDate(Date()) +" by " + login + "\n\
+** " + vscode.workspace.rootPath + "\n\
+** File description:\n\
+**      " + desc + "\n\
+*/\n"
+            );
+        });
+    })
+    return box2;
+}
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -30,42 +56,35 @@ function activate(context) {
         vscode.window.showInformationMessage('Adding Header !');
 
         let editor = vscode.window.activeTextEditor;
-        let pos = editor.selection.active;
 
 		if (editor) {
-            let box = vscode.window.createInputBox();
-            box.onDidAccept(() => {
-                let login = box.value;
-                box.hide()
+            if (!context.globalState.get("login")) {
+                let box = vscode.window.createInputBox();
+                box.onDidAccept(() => {
+                    context.globalState.update("login", box.value)
+                    let login = box.value;
+                    box.hide()
 
-                let box2 = vscode.window.createInputBox();
-                box2.placeholder = "Description";
-                box2.show()
-
-                box2.onDidAccept(() => {
-                    box2.hide()
-                    let desc = box2.value;
-                    let ext = editor.document.uri.fsPath;
-                    vscode.window.showInformationMessage(ext);
-                    editor.edit(editBuilder => {
-                        editBuilder.insert(
-                            new vscode.Position(pos.line, pos.character + 1),
-                            "/*\n\
-** ETNA PROJECT, " + convertDate(Date()) +" by " + login + "\n\
-** " + vscode.workspace.rootPath + "\n\
-** File description:\n\
-**      " + desc + "\n\
-*/\n"
-                        );
-                    });
+                    generateDescBox(editor, login);
                 })
-            })
-            box.placeholder = "Login"
-            box.show()
-		}
+                box.placeholder = "Login"
+                box.show()
+		    } else {
+                generateDescBox(editor, context.globalState.get("login"));
+            }
+        }
+    });
+
+    let disposable2 = vscode.commands.registerCommand('extension.remove-etna-header', function () {
+		// The code you place here will be executed every time your command is executed
+
+		// Display a message box to the user
+        vscode.window.showInformationMessage('Adding Header !');
+        context.globalState.update("login", undefined);
 	});
 
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(disposable2);
 }
 exports.activate = activate;
 

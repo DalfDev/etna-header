@@ -18,6 +18,10 @@
 			{
 				"command": "extension.etna-header",
 				"title": "Add Etna Header"
+            },
+            {
+				"command": "extension.remove-etna-header",
+				"title": "Remove Etna Header"
 			}
         ],
         "keybindings":[
