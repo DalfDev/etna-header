@@ -11,27 +11,48 @@ function convertDate(inputFormat) {
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
 }
 
+function getCommentChars(fileext) {
+    if (fileext === "h" || fileext === "hh" || fileext === "hpp") {
+        return ["/*", "**", "*/"]
+    } else if (fileext === "c" || fileext === "cpp") {
+        return ["/*", "**", "*/"]
+    } else {
+        return ["##", "##", "##"]
+    }
+}
+
 function generateDescBox(editor, login) {
     let box2 = vscode.window.createInputBox();
     let pos = editor.selection.active;
     box2.placeholder = "Description";
     box2.title = "Description de votre fichier"
     box2.show()
+    const resource = editor.document.uri;
+    const folder = vscode.workspace.getWorkspaceFolder(resource);
+
+    let regex = /^.*[.](.*)$/gm;
+    let chars;
+    let path = editor.document.uri.fsPath;
+    let m = regex.exec(path);
+    console.log(m);
+    if (m != null) {
+        chars = getCommentChars(m[1]);
+    } else {
+        chars = getCommentChars("toto");
+    }
 
     box2.onDidAccept(() => {
         box2.hide()
         let desc = box2.value;
-        let ext = editor.document.uri.fsPath;
-        vscode.window.showInformationMessage(ext);
         editor.edit(editBuilder => {
             editBuilder.insert(
                 new vscode.Position(pos.line, pos.character + 1),
-                "/*\n\
-** ETNA PROJECT, " + convertDate(Date()) +" by " + login + "\n\
-** " + vscode.workspace.rootPath + "\n\
-** File description:\n\
-**      " + desc + "\n\
-*/\n"
+                `${chars[0]}\n\
+${chars[1]} ETNA PROJECT, ${convertDate(Date())} by ${login}\n\
+${chars[1]} ${folder.uri.fsPath}\n\
+${chars[1]} File description:\n\
+${chars[1]}      ${desc}\n\
+${chars[2]}\n`
             );
         });
     })
