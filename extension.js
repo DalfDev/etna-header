@@ -23,7 +23,6 @@ function getCommentChars(fileext) {
 
 function generateDescBox(editor, login) {
     let box2 = vscode.window.createInputBox();
-    let pos = editor.selection.active;
     box2.placeholder = "Description";
     box2.title = "Description de votre fichier"
     box2.show()
