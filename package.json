@@ -2,7 +2,8 @@
 	"name": "etna-header",
 	"displayName": "ETNA-HEADER",
 	"description": "Add etna header's to your files",
-	"version": "1.0.0",
+    "version": "1.0.0",
+    "publisher": "Etna-header",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/DalfDev/etna-header"
