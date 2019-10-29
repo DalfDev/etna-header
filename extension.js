@@ -51,7 +51,7 @@ ${chars[1]} ETNA PROJECT, ${convertDate(Date())} by ${login}\n\
 ${chars[1]} ${folder.uri.fsPath}\n\
 ${chars[1]} File description:\n\
 ${chars[1]}      ${desc}\n\
-${chars[2]}\n`
+${chars[2]}\n\n`
             );
         });
     })
