@@ -15,6 +15,7 @@ function generateDescBox(editor, login) {
     let box2 = vscode.window.createInputBox();
     let pos = editor.selection.active;
     box2.placeholder = "Description";
+    box2.title = "Description de votre fichier"
     box2.show()
 
     box2.onDidAccept(() => {
@@ -60,6 +61,7 @@ function activate(context) {
 		if (editor) {
             if (!context.globalState.get("login")) {
                 let box = vscode.window.createInputBox();
+                box.title = "Entrez votre login"
                 box.onDidAccept(() => {
                     context.globalState.update("login", box.value)
                     let login = box.value;
