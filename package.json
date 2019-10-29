@@ -21,7 +21,7 @@
             },
             {
 				"command": "extension.remove-etna-header",
-				"title": "Remove Etna Header"
+				"title": "Remove Etna Login"
 			}
         ],
         "keybindings":[
