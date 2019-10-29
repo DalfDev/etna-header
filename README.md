@@ -11,13 +11,17 @@ Pour changer de login utilisez la commande `Remove Etna Login`
 
 ## Release Notes
 
+#### 1.0.4
+
+Improve Doc
+
 #### 1.0.3
 
 Improve Doc
 
 #### 1.0.2
 
-Add one empty after the header
+Add one empty line after the header
 
 #### 1.0.1
 
