@@ -46,7 +46,7 @@ function generateDescBox(editor, login) {
         let desc = box2.value;
         editor.edit(editBuilder => {
             editBuilder.insert(
-                new vscode.Position(pos.line, pos.character + 1),
+                new vscode.Position(0, 0),
                 `${chars[0]}\n\
 ${chars[1]} ETNA PROJECT, ${convertDate(Date())} by ${login}\n\
 ${chars[1]} ${folder.uri.fsPath}\n\
