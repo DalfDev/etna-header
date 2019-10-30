@@ -2,7 +2,7 @@
 	"name": "etna-header",
 	"displayName": "ETNA-HEADER",
 	"description": "Add etna header's to your files",
-	"version": "1.0.5",
+	"version": "1.0.7",
 	"publisher": "Etna-header",
 	"repository": {
 		"type": "git",
