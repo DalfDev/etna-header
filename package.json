@@ -35,7 +35,7 @@
 		"keybindings": [
 			{
 				"command": "extension.etna-header",
-				"key": "ctrl+c h"
+				"key": "alt+c h"
 			}
 		]
 	},

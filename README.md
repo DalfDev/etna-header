@@ -13,6 +13,10 @@ Pour changer de login utilisez la commande `Remove Etna Login`
 
 #### 1.0.4
 
+Changing keybinding to `alt+c h`
+
+#### 1.0.4
+
 Improve Doc
 
 #### 1.0.3
