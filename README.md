@@ -5,15 +5,19 @@ Dev: chevre_a
 ## Features
 
 Vous pouvez avec cette extension générer les headers de l'ETNA pour les projets de C et CPP.
-`CTRL+C H`: Ajouter un Header (Add Etna Header)
+`ALT+C H`: Ajouter un Header (Add Etna Header)
 
 Pour changer de login utilisez la commande `Remove Etna Login`
 
 ## Release Notes
 
+#### 1.0.6
+
+Improve Doc
+
 #### 1.0.5
 
-Changing keybinding to `alt+c h`
+Changing keybinding to `ALT+c h`
 
 #### 1.0.4
 
