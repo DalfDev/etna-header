@@ -17,6 +17,9 @@ function getCommentChars(fileext) {
     } else if (fileext === "c" || fileext === "cpp") {
         return ["/*", "**", "*/"]
     } else {
+        vscode.window.showInformationMessage(
+            'Extension unknow: Using default Header !'
+        );
         return ["##", "##", "##"]
     }
 }
