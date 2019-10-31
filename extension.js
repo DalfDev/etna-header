@@ -6,8 +6,9 @@ const vscode = require('vscode');
 // your extension is activated the very first time the command is executed
 
 function convertDate(inputFormat) {
-    function pad(s) { return (s < 10) ? '0' + s : s; }
     var d = new Date(inputFormat)
+
+    function pad(s) { return (s < 10) ? '0' + s : s; }
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
 }
 
@@ -25,18 +26,19 @@ function getCommentChars(fileext) {
 }
 
 function generateDescBox(editor, login) {
-    let box2 = vscode.window.createInputBox();
-    box2.placeholder = "Description";
-    box2.title = "Description de votre fichier"
+    let box2            = vscode.window.createInputBox();
+    box2.placeholder    = "Description";
+    box2.title          = "Description de votre fichier"
     box2.show()
-    const resource = editor.document.uri;
-    const folder = vscode.workspace.getWorkspaceFolder(resource);
+
+    const resource  = editor.document.uri;
+    const folder    = vscode.workspace.getWorkspaceFolder(resource);
 
     let regex = /^.*[.](.*)$/gm;
     let chars;
     let path = editor.document.uri.fsPath;
     let m = regex.exec(path);
-    console.log(m);
+
     if (m != null) {
         chars = getCommentChars(m[1]);
     } else {
@@ -50,11 +52,11 @@ function generateDescBox(editor, login) {
             editBuilder.insert(
                 new vscode.Position(0, 0),
                 `${chars[0]}\n\
-${chars[1]} ETNA PROJECT, ${convertDate(Date())} by ${login}\n\
-${chars[1]} ${folder.uri.fsPath}\n\
-${chars[1]} File description:\n\
-${chars[1]}      ${desc}\n\
-${chars[2]}\n\n`
+                ${chars[1]} ETNA PROJECT, ${convertDate(Date())} by ${login}\n\
+                ${chars[1]} ${folder.uri.fsPath}\n\
+                ${chars[1]} File description:\n\
+                ${chars[1]}      ${desc}\n\
+                ${chars[2]}\n\n`
             );
         });
     })
@@ -66,22 +68,22 @@ ${chars[2]}\n\n`
  */
 function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "etna-header" is now active!');
+    // Use the console to output diagnostic information (console.log) and errors (console.error)
+    // This line of code will only be executed once when your extension is activated
+    console.log('Congratulations, your extension "etna-header" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.etna-header', function () {
-		// The code you place here will be executed every time your command is executed
+    // The command has been defined in the package.json file
+    // Now provide the implementation of the command with  registerCommand
+    // The commandId parameter must match the command field in package.json
+    let disposable = vscode.commands.registerCommand('extension.etna-header', function () {
+        // The code you place here will be executed every time your command is executed
 
-		// Display a message box to the user
+        // Display a message box to the user
         vscode.window.showInformationMessage('Adding Header !');
 
         let editor = vscode.window.activeTextEditor;
 
-		if (editor) {
+        if (editor) {
             if (!context.globalState.get("login")) {
                 let box = vscode.window.createInputBox();
                 box.title = "Entrez votre login"
@@ -94,22 +96,22 @@ function activate(context) {
                 })
                 box.placeholder = "Login"
                 box.show()
-		    } else {
+            } else {
                 generateDescBox(editor, context.globalState.get("login"));
             }
         }
     });
 
     let disposable2 = vscode.commands.registerCommand('extension.remove-etna-header', function () {
-		// The code you place here will be executed every time your command is executed
+        // The code you place here will be executed every time your command is executed
 
-		// Display a message box to the user
+        // Display a message box to the user
         vscode.window.showInformationMessage('Remove Etna Login');
         context.globalState.update("login", undefined);
-	});
+    });
 
-	context.subscriptions.push(disposable);
-	context.subscriptions.push(disposable2);
+    context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable2);
 }
 exports.activate = activate;
 
@@ -117,6 +119,6 @@ exports.activate = activate;
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
+    activate,
+    deactivate
 }
